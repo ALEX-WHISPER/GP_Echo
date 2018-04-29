@@ -13,6 +13,10 @@ public class GetSourceImage : MonoBehaviour {
         {
             GetComponent<Image>().enabled = true;
         }
+
+        if (sourceImage == null) {
+            return;
+        }
         GetComponent<Image>().sprite = sourceImage.sprite;
     }
 

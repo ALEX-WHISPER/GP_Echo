@@ -15,6 +15,10 @@ public class ScoreManager : MonoBehaviour {
     void Start()
     {
         playerControl = GameObject.FindWithTag("Player").GetComponent<PlayerMove>();
+        if (playerControl == null) {
+            Debug.Log("Player is null");
+            return;
+        }
         scoreValue = initialScore;
         scoreText.text = scoreValue.ToString();
     }

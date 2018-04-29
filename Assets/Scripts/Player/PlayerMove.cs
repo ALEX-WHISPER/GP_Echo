@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 [System.Serializable]
 public class Boundary 
@@ -14,6 +15,8 @@ enum BoltType
     tripple
 }
 public class PlayerMove : MonoBehaviour {
+    public event Action GameOver_PlayerDead;
+
     public string PlayerName;
     
     public List<GameObject> redSqureImages; //  红：生命
@@ -66,7 +69,17 @@ public class PlayerMove : MonoBehaviour {
     private bool isDead = false;
     private bool isUnmatched = false;
 
-	void Start () 
+    private CountDownForWholeLevel_0 enemyWavesManager;
+
+    private void OnEnable() {
+        this.GameOver_PlayerDead += OnGameOver_PlayerDead;
+    }
+
+    private void OnDisable() {
+        this.GameOver_PlayerDead -= OnGameOver_PlayerDead;
+    }
+
+    void Awake () 
     {
         InitPropertiesInfo();
         InitShotSpawnsList();
@@ -148,7 +161,9 @@ public class PlayerMove : MonoBehaviour {
                 nextDamage = Time.time + reDamagePeriod;
                 Dead();
             } else if (livesCurCount <= 0){
-                Debug.Log("GAMEOVER!!");
+                if (GameOver_PlayerDead != null) {
+                    GameOver_PlayerDead();
+                }
             }
         }
     }
@@ -277,6 +292,8 @@ public class PlayerMove : MonoBehaviour {
 
         ultimateCurCount = ultimateInitialCount;
         UpdateBlueImages(ultimateCurCount);
+
+        enemyWavesManager = GameObject.Find("EnemyMovingModesManager").GetComponent<CountDownForWholeLevel_0>();
     }
 
     /// <summary>
@@ -320,5 +337,9 @@ public class PlayerMove : MonoBehaviour {
     public float GetUltimateDamageAmount()
     {
         return this.ultimateDamageAmount;
+    }
+
+    private void OnGameOver_PlayerDead() {
+        this.enabled = false;
     }
 }

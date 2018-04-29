@@ -24,10 +24,16 @@ public class PlayerInfoReadAndSet : MonoBehaviour {
 
     private void GetPlayerInfo()    //  获取预选的角色、道具信息
     {
+        if (PlayerInfo.instance == null) {
+            Debug.Log("PlayerInfo is null");
+            return;
+        }
+
         this.charIndex = PlayerInfo.instance.GetCharacterIndex();
         this.macIndex = PlayerInfo.instance.GetMacIndex();
         this.tacklesIndexArray = PlayerInfo.instance.GetTacklesIndex();
 
+        Debug.Log(string.Format("charIndex: {0}, macIndex: {1}", charIndex, macIndex));
         SetPlayerProperties();  //  根据获取的信息进行相关设置
     }
 
@@ -63,6 +69,9 @@ public class PlayerInfoReadAndSet : MonoBehaviour {
     {
         CheckBasicInfo(this.charIndex);
 
+        if (tacklesIndexArray == null) {
+            return;
+        }
         for (int i = 0; i < this.tacklesIndexArray.Length; i++ )    //  对道具逐一检测，根据其下标设定对应的加成数据
         {
             CheckTackleFunction(i);

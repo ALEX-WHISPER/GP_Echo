@@ -41,14 +41,20 @@ public class BossHealth : MonoBehaviour {
     private float nextDamage = 0f;
     private bool[] invokeBossBoltControl = new bool[]{false,false,false,false,false};
     private int currentHealthBarID = 0;
-    private
 
-    void Start()
+    private void Start()
     {
+        StartCoroutine(UnDamagableOnStart());
         ConfirmBossState();
         ResetEveryHealthBarValue();
         InitHealthInfo();
         InitHealthBarValueArray();
+    }
+
+    IEnumerator UnDamagableOnStart() {
+        GetComponent<Collider2D>().isTrigger = false;
+        yield return new WaitForSeconds(3f);
+        GetComponent<Collider2D>().isTrigger = true;
     }
 
     void Update()
@@ -194,16 +200,17 @@ public class BossHealth : MonoBehaviour {
 
     private void PlayerPassLevel()
     {
-        if (LanguageManager.lanInstance.GetLanguageIfCN())
-        {
-            Instantiate(levelPass, levelPass.transform.position, Quaternion.identity);
-            Debug.Log("Language: CN");
-        }
-        else
-        {
-            Instantiate(levelPass_ENG, levelPass_ENG.transform.position, Quaternion.identity);
-            Debug.Log("Language: ENG");
-        }
+        //if (LanguageManager.lanInstance.GetLanguageIfCN())
+        //{
+        //    Instantiate(levelPass, levelPass.transform.position, Quaternion.identity);
+        //    Debug.Log("Language: CN");
+        //}
+        //else
+        //{
+        //    Instantiate(levelPass_ENG, levelPass_ENG.transform.position, Quaternion.identity);
+        //    Debug.Log("Language: ENG");
+        //}
+        Instantiate(levelPass, levelPass.transform.position, Quaternion.identity);
         Invoke("BackToStart", 3f);
     }
     private void BackToStart()

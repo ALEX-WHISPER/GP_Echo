@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class CountDownForWholeLevel_2 : CountDownForWholeLevel_0
 {
+    new void OnEnable() {
+        base.OnEnable();
+    }
+
+    new void OnDisable() {
+        base.OnDisable();
+    }
+
     new void Start()
     {
         base.Start();
@@ -21,7 +29,7 @@ public class CountDownForWholeLevel_2 : CountDownForWholeLevel_0
         StartCoroutine(InvokeMovingModes());
     }
 
-    public void StopCountDown()
+    public new void StopCountDown()
     {
         ifStop = true;
     }
@@ -48,15 +56,19 @@ public class CountDownForWholeLevel_2 : CountDownForWholeLevel_0
             if (tmp >= 26 && tmp <= 50)
             {
                 enemyMovingMode.Mosquito_Mode1();
-                //enemyMovingMode.Stone_Mode1();  //  MINUS
                 yield return new WaitForSeconds(3f);  //  MINUS
             }
 
             //  50-60s
-            if (tmp >= 51 && tmp <= 60)
+            if (tmp >= 51 && tmp < maxTime)
             {
                 yield return new WaitForSeconds(1f);  //  MINUS
                 enemyMovingMode.Stone_Mode1();  //  MINUS
+            }
+
+            if (tmp >= maxTime) {
+                ShowBoss();
+                break;
             }
 
             #region MINUS
