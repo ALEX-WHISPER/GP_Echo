@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#region Enemy Classes
 //  飞龙类
 [System.Serializable]
 public class DragonMoveMode
@@ -112,51 +113,70 @@ public class StoneMode
     public float enemyDelay_Min;
     public float enemyDelay_Max;
 }
+#endregion
+
 public class EnemyMovingMode_Level0 : MonoBehaviour {
+    #region Dragon Ref
     public DragonMoveMode dragonMove_1;
     public DragonMoveMode dragonMove_2;
+    #endregion
 
+    #region Worm Ref
     public WormMoveMode wormMove_1;
     public WormMoveMode wormMove_2;
     public WormMoveMode wormMove_3_1;
     public WormMoveMode wormMove_3_2;
+    #endregion
 
+    #region Mosquito Ref
     public MosquitoMode mosquitoMode_1;
     public MosquitoMode mosquitoMode_2;
     public MosquitoMode mosquitoMode_3;
     public MosquitoMode mosquitoMode_4;
     public MosquitoMode mosquitoMode_5;
     public MosquitoMode mosquitoMode_6;
+    #endregion
 
+    #region Queen Ref
     public QueenMode queenMode_1;
     public QueenMode queenMode_2;
     public QueenMode queenMode_3;
+    #endregion
 
+    #region Coorupted Ref
     public CorruptedMode corrupted_1;
     public CorruptedMode corrupted_2;
     public CorruptedMode corrupted_3;
+    #endregion
 
+    #region Tentacle Ref
     public TentacleMode tentacle_1;
     public TentacleMode tentacle_2;
     public TentacleMode tentacle_3;
     public TentacleMode tentacle_4;
     public TentacleMode tentacle_5;
+    #endregion
 
+    #region Battery Ref
     public BatteryMode battery_1;
     public BatteryMode battery_2;
     public BatteryMode battery_3;
     public BatteryMode battery_4;
+    #endregion
 
+    #region Stone Ref
     public StoneMode stone_1;
     public StoneMode stone_2;
+    #endregion
 
-    //  启动: 飞龙-1
+#region Dragon Mode
     public void DragonMove_Mode1()
     {
         StartCoroutine(DragonMove_Mode1_Operate());
     }
-
-    //  飞龙-1模式控制
+    public void DrangonMove_Mode2() {
+        StartCoroutine(DragonMove_Mode2_Operate());
+    }
     IEnumerator DragonMove_Mode1_Operate()
     {
         for (int i = 0; i < dragonMove_1.moveFrom.Length; ++i )
@@ -185,15 +205,7 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
             dragonObj.GetComponent<DragonShoot>().enabled = true;
         }
         dragonMove_1.dragonObjList.Clear();
-    }
-
-    //  启动: 飞龙-2
-    public void DrangonMove_Mode2()
-    {
-        StartCoroutine(DragonMove_Mode2_Operate());
-    }
-
-    //  飞龙-2模式控制
+    }   
     IEnumerator DragonMove_Mode2_Operate()
     {
         for (int i = 0; i < dragonMove_2.moveFrom.Length; ++i)
@@ -215,14 +227,20 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
         }
         dragonMove_2.dragonObjList.Clear();
     }
+    #endregion
 
-    //  启动: 飞虫-1
+#region Worm Mode
     public void WormMove_Mode1()
     {
         StartCoroutine(WormMoveMode1_Operate(wormMove_1));
     }
-
-    //  飞虫-1模式控制
+    public void WormMove_Mode2() {
+        StartCoroutine(WormMoveMode2_Operate(wormMove_2));
+    }
+    public void WormMove_Mode3() {
+        StartCoroutine(WormMoveMode3_Operate(wormMove_3_1));
+        StartCoroutine(WormMoveMode3_Operate(wormMove_3_2));
+    }
     IEnumerator WormMoveMode1_Operate(WormMoveMode wormMoveMode)
     {
         for (int i = 0; i < wormMoveMode.moveFrom.Length; ++i )
@@ -237,14 +255,6 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
             yield return new WaitForSeconds(wormMoveMode.waveDelay);
         }
     }
-
-    //  启动: 飞虫-2
-    public void WormMove_Mode2()
-    {
-        StartCoroutine(WormMoveMode2_Operate(wormMove_2));
-    }
-
-    //  飞虫-2模式控制
     IEnumerator WormMoveMode2_Operate(WormMoveMode wormMoveMode)
     {
         //  生成并移动至指定位置
@@ -268,15 +278,6 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
         }
         wormMoveMode.wormObjList.Clear();
     }
-
-    //  启动: 飞虫-3
-    public void WormMove_Mode3()
-    {
-        StartCoroutine(WormMoveMode3_Operate(wormMove_3_1));
-        StartCoroutine(WormMoveMode3_Operate(wormMove_3_2));
-    }
-
-    //  飞虫-3模式控制
     IEnumerator WormMoveMode3_Operate(WormMoveMode wormMoveMode)
     {
         //  实例化，每个怪物物体根据其自身运动模式，从某一位置运动到另一位置
@@ -310,44 +311,33 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
         gameObj.GetComponent<TweenPositionMove>().moveTo = moveTo;
         gameObj.GetComponent<TweenPositionMove>().duration = duration;
     }
+    #endregion
 
-    //  启动: 自爆蚊-1
+#region Mosquito Mode
     public void Mosquito_Mode1()
     {
         StartCoroutine(CreateMosquito(mosquitoMode_1));
     }
-
-    //  启动: 自爆蚊-2
     public void Mosquito_Mode2()
     {
         StartCoroutine(CreateMosquito(mosquitoMode_2));
     }
-
-    //  启动: 自爆蚊-3
     public void Mosquito_Mode3()
     {
         StartCoroutine(CreateMosquito(mosquitoMode_3));
     }
-
-    //  启动: 自爆蚊-4
     public void Mosquito_Mode4()
     {
         StartCoroutine(CreateMosquito(mosquitoMode_4));
     }
-
-    //  启动: 自爆蚊-5
     public void Mosquito_Mode5()
     {
         StartCoroutine(CreateMosquito(mosquitoMode_5));
     }
-
-    //  启动: 自爆蚊-6
     public void Mosquito_Mode6()
     {
         StartCoroutine(CreateMosquito(mosquitoMode_6));
     }
-
-    //  自爆蚊模式创建
     IEnumerator CreateMosquito(MosquitoMode mosquitoMode)
     {
         for (int j = 0; j < mosquitoMode.boltCount; ++j)
@@ -361,20 +351,17 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
             yield return new WaitForSeconds(mosquitoMode.boltDelay);
         } 
     }
+#endregion
 
-    //  启动: 女皇-1
+#region Queen Mode
     public void Queen_Mode1()
     {
         StartCoroutine(QueenMode_Operate(queenMode_1));
     }
-
-    //  启动: 女皇-2
     public void Queen_Mode2()
     {
         StartCoroutine(QueenMode_Operate(queenMode_2));
     }
-
-    //  启动: 女皇-3
     public void Queen_Mode3()
     {
         StartCoroutine(QueenMode_Operate(queenMode_3));
@@ -384,18 +371,15 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
     {
         DestroyQueenObj(queenMode_1);
     }
-
     public void Quuen_Mode2_Destroy()
     {
         DestroyQueenObj(queenMode_2);
     }
-
     public void Quuen_Mode3_Destroy()
     {
         DestroyQueenObj(queenMode_3);
     }
 
-    //  女皇模式创建
     IEnumerator QueenMode_Operate(QueenMode queenMoveMode)
     {
         for (int i = 0; i < queenMoveMode.moveFrom.Length; ++i)
@@ -408,7 +392,6 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
         }
     }
 
-    //  女皇模式销毁
     private void DestroyQueenObj(QueenMode queenMoveMode)
     {
         foreach(GameObject queenObj in queenMoveMode.queenObjList)
@@ -417,22 +400,21 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
         }
         queenMoveMode.queenObjList.Clear();
     }
+    #endregion
 
+#region Corrupted Mode
     public void Corrupted_Mode1()
     {
         StartCoroutine(CorruptedMove_Operate(corrupted_1));
     }
-
     public void Corrupted_Mode2()
     {
         StartCoroutine(CorruptedMove_Operate(corrupted_2));
     }
-
     public void Corrupted_Mode3()
     {
         StartCoroutine(CorruptedMove_Operate(corrupted_3));
     }
-
     IEnumerator CorruptedMove_Operate(CorruptedMode corruptedMove)
     {
         //  腐化者-1
@@ -514,32 +496,29 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
 
         return (distance / speed);
     }
+#endregion
 
+#region Tentacle Mode
     public void Tentacle_Mode1()
     {
         StartCoroutine(TentacleMove_Operate(tentacle_1));
     }
-
     public void Tentacle_Mode2()
     {
         StartCoroutine(TentacleMove_Operate(tentacle_2));
     }
-
     public void Tentacle_Mode3()
     {
         StartCoroutine(TentacleMove_Operate(tentacle_3));
     }
-
     public void Tentacle_Mode4()
     {
         StartCoroutine(TentacleMove_Operate(tentacle_4));
     }
-
     public void Tentacle_Mode5()
     {
         StartCoroutine(TentacleMove_Operate(tentacle_5));
     }
-
     IEnumerator TentacleMove_Operate(TentacleMode tentacleMove)
     {
         if(tentacleMove == tentacle_1)
@@ -555,12 +534,13 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
             Instantiate(tentacleMove.tentacle_Static);
         }
     }
+#endregion
 
+#region Battery Mode
     public void Battery_Mode1()
     {
         StartCoroutine(BatteryMove_Operate(battery_1));
     }
-
     public void Battery_Mode2()
     {
         StartCoroutine(BatteryMove_Operate(battery_2));
@@ -605,17 +585,17 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
             batteryMove.batteryObjList.Clear();
         }
     }
+#endregion
 
+#region Stone Mode
     public void Stone_Mode1()
     {
         StartCoroutine(StoneMove_Operate(stone_1));
     }
-
     public void Stone_Mode2()
     {
         StartCoroutine(StoneMove_Operate(stone_2));
     }
-
     IEnumerator StoneMove_Operate(StoneMode stoneMove)
     {
         float stoneSpeed = stoneMove.stoneEnemies[0].GetComponent<Stone_Mover>().speed;
@@ -634,4 +614,5 @@ public class EnemyMovingMode_Level0 : MonoBehaviour {
             yield return new WaitForSeconds(Random.Range(stoneMove.enemyDelay_Min, stoneMove.enemyDelay_Max));
         }
     }
+#endregion
 }
