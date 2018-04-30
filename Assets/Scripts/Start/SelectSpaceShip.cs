@@ -68,12 +68,15 @@ public class SelectSpaceShip : MonoBehaviour {
     private void EnterGame()
     {
         GetAndSavePlayerInfo();
+        if (GameObject.Find("LevelLoader") != null) {
+            LevelLoader levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
 
-        if (SceneManager.GetActiveScene().buildIndex >= SceneManager.sceneCountInBuildSettings - 1) {
-            Debug.LogError("this is the last scene in build settings!");
-            return;
+            if (levelLoader != null) {
+                int nextSceneIndex = 0;
+                nextSceneIndex = PlayerPrefs.HasKey("StuckSceneIndex") ? PlayerPrefs.GetInt("StuckSceneIndex") : SceneManager.GetActiveScene().buildIndex + 1;
+                levelLoader.LoadNextLevel(nextSceneIndex);
+            }
         }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void SwitchSpaceShipImg(int index) {

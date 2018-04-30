@@ -44,19 +44,19 @@ public class CountDownForWholeLevel_1 : CountDownForWholeLevel_0
                 yield return new WaitForSeconds(1f);
             }
 
-            //  5-20s: 自爆蚊2
-            if (tmp > 5 && tmp <= 20)
+            //  5-20s
+            if (tmp > 5 && tmp < 20)
             {
-                enemyMovingMode.DrangonMove_Mode2();    //  MINUS
-                yield return new WaitForSeconds(5f);
+                enemyMovingMode.Queen_Mode2();    //  MINUS
+                yield return new WaitForSeconds(15f);
 
             }//  5-20s
 
             //  20-40s: 自爆蚊1
-            if (tmp > 20 && tmp <= 40)
+            if (tmp >= 20 && tmp <= 40)
             {
                 enemyMovingMode.Tentacle_Mode1(); //  MINUS
-                yield return new WaitForSeconds(waveDelay);
+                yield return new WaitForSeconds(5f);
             }
 
             //  40-60s: 触手1

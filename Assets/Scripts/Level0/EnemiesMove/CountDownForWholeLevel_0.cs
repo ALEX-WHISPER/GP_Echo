@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class CountDownForWholeLevel_0 : MonoBehaviour
 {
-    public event Action AllEnemyWavesEnded;
+    public event Action<int> AllEnemyWavesEnded;
 
     public int tmp;
     public int maxTime = 60;
@@ -33,12 +33,9 @@ public class CountDownForWholeLevel_0 : MonoBehaviour
 
             playerControl.GameOver_PlayerDead += OnGameOver_PlayerDead;
         }
-
-        AllEnemyWavesEnded += OnLevelPassed;
     }
     protected void OnDisable() {
         playerControl.GameOver_PlayerDead -= OnGameOver_PlayerDead;
-        AllEnemyWavesEnded -= OnLevelPassed;
     }
     protected void Start()
     {
@@ -52,10 +49,6 @@ public class CountDownForWholeLevel_0 : MonoBehaviour
         }
 
         timeText.text = tmp.ToString();
-
-        if (async != null) {
-            Debug.Log(async.progress.ToString("F2"));
-        }
     }
     public void StartCountDown()
     {
@@ -106,7 +99,7 @@ public class CountDownForWholeLevel_0 : MonoBehaviour
 
             if (tmp >= maxTime) {
                 if (AllEnemyWavesEnded != null) {
-                    AllEnemyWavesEnded();
+                    AllEnemyWavesEnded(SceneManager.GetActiveScene().buildIndex + 1);
                 }
                 ifStop = true;
             }
@@ -117,14 +110,6 @@ public class CountDownForWholeLevel_0 : MonoBehaviour
         StopCoroutine(CountDown());
         StopCoroutine(InvokeMovingModes());
         ifStop = true;
-    }
-    protected void OnLevelPassed() {
-        StartCoroutine(AsyncLoading());
-    }
-
-    protected IEnumerator AsyncLoading() {
-        async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-        yield return async;
     }
     protected virtual void ShowBoss() {
         bossBody.SetActive(true);

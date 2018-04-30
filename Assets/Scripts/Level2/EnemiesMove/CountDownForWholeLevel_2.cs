@@ -44,26 +44,26 @@ public class CountDownForWholeLevel_2 : CountDownForWholeLevel_0
                 yield return new WaitForSeconds(1f);
             }
 
-            //  5-25s: 飞龙2
+
             if (tmp > 5 && tmp <= 25)
             {
-                enemyMovingMode.DragonMove_Mode1();  //  MINUS
-                yield return new WaitForSeconds(10f);  //  MINUS
+                enemyMovingMode.Corrupted_Mode1();  //  MINUS
+                yield return new WaitForSeconds(15f);  //  MINUS
 
             }//  5-25s
 
-            //  25-50s: 自爆蚊1 + 陨石1
+
             if (tmp >= 26 && tmp <= 50)
             {
-                enemyMovingMode.Mosquito_Mode1();
-                yield return new WaitForSeconds(3f);  //  MINUS
+                enemyMovingMode.Battery_Mode1();
+                yield return new WaitForSeconds(10f);  //  MINUS
             }
 
             //  50-60s
             if (tmp >= 51 && tmp < maxTime)
             {
-                yield return new WaitForSeconds(1f);  //  MINUS
                 enemyMovingMode.Stone_Mode1();  //  MINUS
+                yield return new WaitForSeconds(1f);  //  MINUS
             }
 
             if (tmp >= maxTime) {
