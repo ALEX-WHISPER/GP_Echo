@@ -131,6 +131,7 @@ public class EnemyShoot_Boss3 : MonoBehaviour {
     {
         ifStopBolt2 = false;
 
+        //  moving queen behaviour
         foreach (GameObject shotObj in movingQueen_Bolt2)
         {
             if(!shotObj.activeSelf)
@@ -154,6 +155,7 @@ public class EnemyShoot_Boss3 : MonoBehaviour {
             }
         }
 
+        //  vertecies bolt behaviour
         foreach(GameObject shotObj in vertexes_Bolt2)
         {
             if (!shotObj.activeSelf)

@@ -36,6 +36,7 @@ public class CountDownForWholeLevel_0 : MonoBehaviour
     }
     protected void OnDisable() {
         playerControl.GameOver_PlayerDead -= OnGameOver_PlayerDead;
+        this.tmp = 0;
     }
     protected void Start()
     {

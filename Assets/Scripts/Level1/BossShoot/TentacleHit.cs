@@ -29,13 +29,13 @@ public class TentacleHit : MonoBehaviour {
 
         if(ifCanHit && !ifCanBack)
         {
-            LookAtPlayer();
-            TweenPosition.Begin(gameObject, hitDuration, playerBeHitPos);
+            LookAtPlayer(); //  面向主角
+            TweenPosition.Begin(gameObject, hitDuration, playerBeHitPos);   //  朝目标位置戳去
         }
 
         if(ifCanBack && !ifCanHit)
         {
-            TweenPosition.Begin(gameObject, backDuration, startPosVec3);
+            TweenPosition.Begin(gameObject, backDuration, startPosVec3);    //  返回
         }
 	}
 
@@ -45,7 +45,7 @@ public class TentacleHit : MonoBehaviour {
         {
             nextHit = Time.time + hitRate;
 
-            transform.LookAt(player);  //  绕 y 轴顺时针（自上向下俯视）旋转90度
+            transform.LookAt(player);  //  调整朝向，面向主角
             transform.Rotate(new Vector3(90f, 0f, 0f));     //  绕 x 轴顺时针（自前向后正视）旋转 90 度 
             transform.Rotate(new Vector3(0f, 90f, 0f)); //  绕本地 y 轴顺时针（自右向左侧视）旋转 90 度
             playerBeHitPos = player.position;
@@ -57,9 +57,9 @@ public class TentacleHit : MonoBehaviour {
         while(true)
         {
             yield return new WaitForSeconds(hitDelay);
-            ifCanHit = true; ifCanBack = false;
+            ifCanHit = true; ifCanBack = false;     //  开关：戳向主角
             yield return new WaitForSeconds(hitStay);   //  停留一段时间后
-            ifCanBack = true; ifCanHit = false;
+            ifCanBack = true; ifCanHit = false; //  开关：从主角处缩回触手
 
             if(!ifLoop)
             {
