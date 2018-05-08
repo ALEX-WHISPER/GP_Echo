@@ -94,8 +94,8 @@ public class PlayerMove : MonoBehaviour {
             nextFire = Time.time + fireRate;
             ShootSpawnsControl(level);  //  根据当前子弹级别开启相应的发射口
 
-            GetComponent<AudioSource>().clip = audioClips[0];
-            GetComponent<AudioSource>().Play();
+            GetComponent<AudioSource>().clip = audioClips[0];   //  指定射击音效
+            GetComponent<AudioSource>().Play(); //  播放射击音效
         }
         else if (Input.GetKey(KeyCode.LeftShift))   //  低速模式
         {
@@ -181,10 +181,12 @@ public class PlayerMove : MonoBehaviour {
 
     void ShootSpawnsControl(int _level) //  发射口控制
     {
+        //  _level: 当前发射状态级别
         for (int i = 0; i <= _level; i++)
         {
             foreach (Transform singleSpawn in shotSpawnsDic[i])
             {
+                //  实例化子弹物体
                 Instantiate(bolt_Ordinary, singleSpawn.position, singleSpawn.rotation);
             }
         }
