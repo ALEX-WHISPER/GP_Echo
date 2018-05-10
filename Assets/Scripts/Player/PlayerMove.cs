@@ -156,8 +156,7 @@ public class PlayerMove : MonoBehaviour {
     {
         if (other.tag == "EnemyBolt" || other.tag == "EnemyAndBolt")
         {
-            if(livesCurCount > 0 && Time.time > nextDamage && !isUnmatched)
-            {
+            if(livesCurCount > 0 && Time.time > nextDamage && !isUnmatched) {
                 nextDamage = Time.time + reDamagePeriod;
                 Dead();
             } else if (livesCurCount <= 0){
